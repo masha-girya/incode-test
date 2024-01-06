@@ -1,0 +1,24 @@
+.board {
+  display: flex;
+  justify-content: space-between;
+
+  &__column {
+  }
+
+  &__title {
+    margin-bottom: 20px;
+
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  &__cardsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 20px;
+
+    background-color: rgb(151, 149, 149);
+  }
+}

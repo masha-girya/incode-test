@@ -1,0 +1,65 @@
+@use 'src/styles/_variables.scss' as vars;
+@use 'src/styles/_mixins.scss';
+
+.card {
+  @include mixins.card();
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  cursor: grab;
+
+  &__info {
+    width: max-content;
+
+    &__title, &__desc {
+      cursor: auto;
+    }
+
+    &__title {
+      font-size: 20px;
+
+      width: 100%;
+
+      margin-bottom: 10px;
+    }
+  }
+
+  &__buttons {
+    align-self: flex-end;
+
+    display: flex;
+    gap: 10px;
+
+    &__edit, &__delete {
+      width: 25px;
+      height: 25px;
+
+      svg {
+        width: inherit;
+        height: inherit;
+
+        path {
+          transition: fill .3s ease;
+        }
+      }
+    }
+
+    &__edit {
+      &:hover {
+        svg path {
+          fill: green;
+        }
+      }
+    }
+
+    &__delete {
+      &:hover {
+        svg path {
+          fill: red;
+        }
+      }
+    }
+  }
+}
