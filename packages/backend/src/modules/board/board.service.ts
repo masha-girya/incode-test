@@ -22,16 +22,19 @@ export class BoardService {
     return board;
   }
 
-  async getBoardWithRelations(id: string) {
-    const board = await this.boardRepository.findOne({
-      where: { id },
+  async getAllBoardIds() {
+    const boardIds = await this.boardRepository.find({
+      select: { id: true },
+      order: { createdDate: 'DESC' },
     });
 
-    if (!board) {
+    console.log(boardIds);
+
+    if (!boardIds) {
       throw new NotFoundException();
     }
 
-    return board;
+    return boardIds;
   }
 
   async addBoard() {
