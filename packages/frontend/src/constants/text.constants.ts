@@ -8,6 +8,8 @@ export const BUTTON_CONSTANTS = {
   names: {
     search: 'Search',
     addBoard: 'Create New Board',
+    yes: 'Yes',
+    no: 'No',
   },
 } as const;
 
@@ -20,4 +22,9 @@ export const INPUT_CONSTANTS = {
   values: {
     submit: 'Submit',
   },
+};
+
+export const CONTENT_CONSTANTS = {
+  noCards: 'No cards yet',
+  deleteCard: 'Are you sure about deleting the card?',
 };

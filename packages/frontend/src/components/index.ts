@@ -6,6 +6,7 @@ export * from './board';
 export * from './board-ids-list';
 export * from './button';
 export * from './card';
+export * from './delete-card-plug';
 export * from './icons';
 export * from './header';
 export * from './search';

@@ -5,3 +5,5 @@ export interface IBoard {
   createdDate: Date;
   cards: ICard[];
 }
+
+export interface IBoardIds extends Pick<IBoard, 'id'> {}

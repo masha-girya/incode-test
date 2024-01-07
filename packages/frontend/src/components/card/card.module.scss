@@ -10,10 +10,17 @@
 
   cursor: grab;
 
+  &_onEdit {
+    height: max-content;
+
+    cursor: auto;
+  }
+
   &__info {
     width: max-content;
 
-    &__title, &__desc {
+    &__title,
+    &__desc {
       cursor: auto;
     }
 
@@ -31,35 +38,10 @@
 
     display: flex;
     gap: 10px;
-
-    &__edit, &__delete {
-      width: 25px;
-      height: 25px;
-
-      svg {
-        width: inherit;
-        height: inherit;
-
-        path {
-          transition: fill .3s ease;
-        }
-      }
-    }
-
-    &__edit {
-      &:hover {
-        svg path {
-          fill: green;
-        }
-      }
-    }
-
-    &__delete {
-      &:hover {
-        svg path {
-          fill: red;
-        }
-      }
-    }
   }
+}
+
+.iconBtn {
+  width: 20px;
+  height: 20px;
 }

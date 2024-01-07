@@ -1,15 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AddBoard, BoardIdsList, Search } from 'src/components';
+import { IBoardIds } from 'src/types';
+import { addBoard } from 'src/api';
 import styles from './header.module.scss';
 
-export const Header = () => {
-  const boardIds = ['1', '2', '3'];
+interface IProps {
+  setSearchId: React.Dispatch<React.SetStateAction<string>>;
+  loadBoard: (id: string) => Promise<void>;
+}
+
+export const Header = (props: IProps) => {
+  const { setSearchId, loadBoard } = props;
+
+  const [boardIds, setBoardIds] = useState<IBoardIds[]>([]);
   const [query, setQuery] = useState('');
   const [activeBoardId, setActiveBoardId] = useState('None');
 
   const handleSearch = () => {
-    // search
+    setSearchId(query);
+    setQuery('');
+    setActiveBoardId('None');
   };
+
+  const createBoard = useCallback(async () => {
+    const board = await addBoard();
+
+    if (board) {
+      loadBoard(board.id);
+
+      const newBoardIds = [{ id: board.id }, ...boardIds];
+      setBoardIds(newBoardIds);
+    }
+  }, [boardIds]);
 
   useEffect(() => {
     if (activeBoardId === 'None') {
@@ -22,9 +44,10 @@ export const Header = () => {
   return (
     <div>
       <div className={styles.header}>
-        <AddBoard handleCreate={handleSearch} />
+        <AddBoard handleCreate={createBoard} />
         <BoardIdsList
           boardIds={boardIds}
+          setBoardIds={setBoardIds}
           activeBoardId={activeBoardId}
           setActiveBoardId={setActiveBoardId}
         />

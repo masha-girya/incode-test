@@ -13,7 +13,7 @@ export const AddBoard = (props: IProps) => {
     <div className={styles.addBoard}>
       <Button
         name={BUTTON_CONSTANTS.names.addBoard}
-        Icon={<PlusIcon />}
+        Icon={<PlusIcon className={styles.addBoard__plusIcon} />}
         handleClick={handleCreate}
       />
     </div>

@@ -13,6 +13,7 @@ export class BoardService {
   async getBoard(id: string) {
     const board = await this.boardRepository.findOne({
       where: { id },
+      relations: { cards: true },
     });
 
     if (!board) {
@@ -27,8 +28,6 @@ export class BoardService {
       select: { id: true },
       order: { createdDate: 'DESC' },
     });
-
-    console.log(boardIds);
 
     if (!boardIds) {
       throw new NotFoundException();

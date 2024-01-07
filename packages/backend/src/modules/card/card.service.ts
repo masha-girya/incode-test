@@ -76,9 +76,11 @@ export class CardService {
     const { id } = updatedCardDto;
     const card = await this.getCard(id);
 
-    Object.assign(card, updatedCardDto);
+    if (!card) {
+      throw new NotFoundException();
+    }
 
-    await this.cardRepository.save(card);
+    await this.cardRepository.save(updatedCardDto);
 
     return card;
   }

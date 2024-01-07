@@ -31,6 +31,13 @@
 
     padding: 20px;
 
+    width: 390px;
+    min-height: 240px;
+
     background-color: vars.$color-board-background;
   }
+}
+
+.noCardsPlug {
+  text-align: center;
 }

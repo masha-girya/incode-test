@@ -14,9 +14,7 @@
 
   &_onAdd {
     &:hover {
-      -webkit-box-shadow: initial;
-      -moz-box-shadow: initial;
-      box-shadow: initial;
+      @include mixins.card();
     }
   }
 }
