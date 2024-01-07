@@ -1,5 +1,6 @@
-import { BUTTON_CONSTANTS, INPUT_CONSTANTS } from '../../constants';
+import { BUTTON_CONSTANTS, INPUT_CONSTANTS } from 'src/constants';
 import styles from './add-card-form.module.scss';
+// import { Button } from '../button';
 
 interface IProps {
   handleClose: () => void;
@@ -38,6 +39,8 @@ export const AddCardForm = ({ handleClose }: IProps) => {
           <p>{INPUT_CONSTANTS.labels.addInputDesk}</p>
           <textarea />
         </label>
+
+        {/* <Button name="submit" handleClick={() => {}} /> */}
 
         <input
           className={styles.submitBtn}

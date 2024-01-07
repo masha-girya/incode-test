@@ -1,4 +1,4 @@
-import { CardStatus } from '../types';
+import { CardStatus } from 'src/types';
 
 export const BOARD_COLUMNS = [
   CardStatus.TODO,

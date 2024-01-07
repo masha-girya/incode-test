@@ -1,4 +1,4 @@
-import { CardStatus } from '../types';
+import { CardStatus } from 'src/types';
 
 export interface ICard {
   id: string;

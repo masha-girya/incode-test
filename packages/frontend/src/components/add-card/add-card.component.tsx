@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { AddCardForm, AddCardButton } from '../../components';
-import styles from './add-card.module.scss';
 import classNames from 'classnames';
+import { AddCardForm, AddCardButton } from 'src/components';
+import styles from './add-card.module.scss';
 
 export const AddCard = () => {
   const [isOnAdd, setIsOnAdd] = useState(false);

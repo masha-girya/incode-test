@@ -1,14 +1,4 @@
-import { CardStatus } from '../types';
-
-export const MOCK = {
-  card: {
-    id: 'test',
-    title: 'Title',
-    description: 'Description',
-    boardId: 'board-test',
-    status: CardStatus.TODO,
-  },
-};
+import { CardStatus, IBoard } from 'src/types';
 
 export const MOCK_CARD_LIST = [
   {
@@ -47,3 +37,9 @@ export const MOCK_CARD_LIST = [
     status: CardStatus.IN_PROGRESS,
   },
 ];
+
+export const MOCK_BOARD: IBoard = {
+  id: 'BOARD',
+  cards: MOCK_CARD_LIST,
+  createdDate: new Date(),
+};

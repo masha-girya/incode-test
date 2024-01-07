@@ -1,14 +1,14 @@
-import { ICard } from '../../types';
+import { EditIcon, TrashIcon } from 'src/components';
+import { ICard } from 'src/types';
+import { BUTTON_CONSTANTS } from 'src/constants';
 import styles from './card.module.scss';
-import { BUTTON_CONSTANTS } from '../../constants';
-import { EditIcon, TrashIcon } from '../../components';
 
 interface IProps {
   cardInfo: ICard;
 }
 
 export const Card = ({ cardInfo }: IProps) => {
-  const { id, boardId, status, title, description } = cardInfo;
+  const { title, description } = cardInfo;
 
   return (
     <div className={styles.card}>

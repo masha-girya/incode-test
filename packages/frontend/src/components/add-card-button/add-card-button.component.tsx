@@ -1,5 +1,5 @@
-import { BUTTON_CONSTANTS } from '../../constants';
-import { PlusIcon } from '../icons';
+import { PlusIcon } from 'src/components';
+import { BUTTON_CONSTANTS } from 'src/constants';
 import styles from './add-card-button.module.scss';
 
 interface IProps {
