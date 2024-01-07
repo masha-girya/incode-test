@@ -6,10 +6,19 @@ interface IProps {
   handleClick: () => void;
   Icon?: JSX.Element;
   type?: 'button' | 'submit';
+  ariaLabel?: string;
+  isSmallIcon?: boolean;
 }
 
 export const Button = (props: IProps) => {
-  const { name, handleClick, Icon, type = 'button' } = props;
+  const {
+    name,
+    handleClick,
+    Icon,
+    type = 'button',
+    ariaLabel,
+    isSmallIcon,
+  } = props;
 
   return (
     <button
@@ -17,7 +26,9 @@ export const Button = (props: IProps) => {
       onClick={handleClick}
       className={classNames(styles.button, {
         [styles.button_withIcon]: Icon,
+        [styles.button_smallIcon]: isSmallIcon,
       })}
+      aria-label={ariaLabel}
     >
       {Icon}
       {name}

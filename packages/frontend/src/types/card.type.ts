@@ -7,3 +7,5 @@ export interface ICard {
   boardId: string;
   status: CardStatus;
 }
+
+export interface ICardRequest extends Omit<ICard, 'id' | 'status'> {}

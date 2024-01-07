@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Board, Header } from './components';
-import { MOCK_CARD_LIST } from './constants';
+import { getBoarById } from './api';
+import { IBoard } from './types';
 import styles from './App.module.scss';
 
 function App() {
-  const [board] = useState(MOCK_CARD_LIST);
+  const [board, setBoard] = useState<IBoard | null>(null);
+  const [searchId, setSearchId] = useState('');
 
-  // const loadBoard = (id: string) => {
-  // };
+  const loadBoard = useCallback(async (id: string) => {
+    const boardData = await getBoarById(id);
+
+    if (boardData) {
+      setBoard(boardData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchId.length !== 0) {
+      loadBoard(searchId);
+    }
+  }, [searchId]);
 
   return (
     <div className={styles.App}>
-      <Header />
-      {!board && <Board board={board} />}
+      <Header setSearchId={setSearchId} loadBoard={loadBoard} />
+      {board && <Board board={board} loadBoard={loadBoard} />}
     </div>
   );
 }
