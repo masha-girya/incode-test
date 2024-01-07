@@ -15,14 +15,14 @@ import { BoardDto } from './board.dto';
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
+  @Get(ROUTES.BOARD_ALL)
+  getAllBoardsIds() {
+    return this.boardService.getAllBoardIds();
+  }
+
   @Get(ROUTES.ID)
   getBoardById(@Param('id') id: string) {
     return this.boardService.getBoard(id);
-  }
-
-  @Get()
-  getBoardById2() {
-    return 'BOARD';
   }
 
   @Post()

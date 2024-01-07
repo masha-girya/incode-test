@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { BoardEntity } from '../board';
 import { CardStatus } from 'src/types';
 import { Exclude } from 'class-transformer';
@@ -7,6 +13,9 @@ import { Exclude } from 'class-transformer';
 export class CardEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 
   @Column('character varying')
   title: string;
