@@ -1,0 +1,22 @@
+@use 'src/styles/_variables.scss' as vars;
+@use 'src/styles/_mixins.scss';
+
+.addCard {
+  @include mixins.card();
+
+  transition: box-shadow .2s linear;
+
+  &:hover {
+    -webkit-box-shadow: inset 0px 0px 5px 5px rgb(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0px 0px 5px 5px rgb(0, 0, 0, 0.4);
+    box-shadow: inset 0px 0px 5px 5px rgb(0, 0, 0, 0.4);
+  }
+
+  &_onAdd {
+    &:hover {
+      -webkit-box-shadow: initial;
+      -moz-box-shadow: initial;
+      box-shadow: initial;
+    }
+  }
+}

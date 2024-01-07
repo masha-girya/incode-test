@@ -1,0 +1,30 @@
+@use 'src/styles/_variables.scss' as vars;
+@use 'src/styles/_mixins.scss';
+
+.search {
+  display: flex;
+  gap: 20px;
+
+  margin-bottom: 50px;
+
+  &__input {
+    width: 100%;
+    height: 35px;
+
+    padding: 5px 10px;
+
+    border-radius: 10px;
+    border: 1px solid #dbd9d9;
+
+    transition: border-color .3s ease;
+
+    &:hover {
+      border-color: vars.$color-board-background;
+    }
+
+    &:focus {
+      border-color: #202020;
+      outline: none;
+    }
+  }
+}

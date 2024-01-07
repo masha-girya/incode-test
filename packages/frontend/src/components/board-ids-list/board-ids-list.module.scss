@@ -1,0 +1,11 @@
+.selection {
+  height: 30px;
+  width: 200px;
+
+  padding: 5px 10px;
+  margin-left: 10px;
+
+  &:focus {
+    outline: none;
+  }
+}

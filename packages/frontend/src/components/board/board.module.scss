@@ -1,0 +1,36 @@
+@use 'src/styles/_variables.scss' as vars;
+@use 'src/styles/_mixins.scss';
+
+.board {
+  &__boardID {
+    font-weight: 600;
+
+    margin-bottom: 30px;
+
+    span {
+      font-weight: 400;
+    }
+  }
+}
+
+.boardColumns {
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    margin-bottom: 20px;
+
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  &__cardsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 20px;
+
+    background-color: vars.$color-board-background;
+  }
+}
