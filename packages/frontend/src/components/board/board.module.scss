@@ -1,6 +1,3 @@
-@use 'src/styles/_variables.scss' as vars;
-@use 'src/styles/_mixins.scss';
-
 .board {
   &__boardID {
     font-weight: 600;
@@ -11,33 +8,10 @@
       font-weight: 400;
     }
   }
-}
 
-.boardColumns {
-  display: flex;
-  justify-content: space-between;
-
-  &__title {
-    margin-bottom: 20px;
-
-    text-align: center;
-    text-transform: capitalize;
-  }
-
-  &__cardsList {
+  &__boardColumns {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 20px;
-
-    padding: 20px;
-
-    width: 390px;
-    min-height: 240px;
-
-    background-color: vars.$color-board-background;
   }
-}
-
-.noCardsPlug {
-  text-align: center;
 }

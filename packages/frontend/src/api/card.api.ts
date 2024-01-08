@@ -1,41 +1,28 @@
 import axios from 'axios';
 import { ICard, ICardRequest } from 'src/types';
 import { API_ENDPOINT, API_ENDPOINT_ROUTES } from 'src/constants';
+import { sendRequest } from 'src/utils';
 
 export const addCard = async (data: ICardRequest) => {
-  try {
-    const response = await axios.post(
-      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}`,
-      data,
-    );
+  const response = await sendRequest(() =>
+    axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}`, data),
+  );
 
-    return response.data;
-  } catch (error) {
-    console.error('error', error);
-  }
+  return response.data;
 };
 
 export const editCard = async (data: ICard) => {
-  try {
-    const response = await axios.patch(
-      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${data.id}`,
-      data,
-    );
+  const response = await sendRequest(() =>
+    axios.patch(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${data.id}`, data),
+  );
 
-    return response.data;
-  } catch (error) {
-    console.error('error', error);
-  }
+  return response.data;
 };
 
 export const deleteCard = async (id: string) => {
-  try {
-    const response = await axios.delete(
-      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${id}`,
-    );
+  const response = await sendRequest(() =>
+    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${id}`),
+  );
 
-    return response.data;
-  } catch (error) {
-    console.error('error', error);
-  }
+  return response.data;
 };

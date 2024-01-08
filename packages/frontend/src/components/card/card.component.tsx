@@ -10,15 +10,18 @@ import {
 import { CardAction, ICard } from 'src/types';
 import { BUTTON_CONSTANTS } from 'src/constants';
 import { deleteCard } from 'src/api';
+import { useBoardRequest } from 'src/utils';
 import styles from './card.module.scss';
 
 interface IProps {
   cardInfo: ICard;
-  loadBoard: (id: string) => Promise<void>;
 }
 
-export const Card = ({ cardInfo, loadBoard }: IProps) => {
+export const Card = ({ cardInfo }: IProps) => {
   const { title, description, boardId, id } = cardInfo;
+
+  const { loadBoard } = useBoardRequest();
+
   const [onEdit, setOnEdit] = useState(false);
   const [onDelete, setOnDelete] = useState(false);
 
@@ -33,7 +36,6 @@ export const Card = ({ cardInfo, loadBoard }: IProps) => {
         <AddCardForm
           boardId={boardId}
           handleClose={() => setOnEdit(false)}
-          loadBoard={loadBoard}
           action={CardAction.edit}
           card={cardInfo}
         />

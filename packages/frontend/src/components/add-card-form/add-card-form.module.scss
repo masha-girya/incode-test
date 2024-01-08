@@ -1,11 +1,7 @@
-.addCardForm {
-  position: relative;
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .field {
@@ -27,30 +23,6 @@
 }
 
 .submitBtn {
+  width: 100%;
   cursor: pointer;
-}
-
-.closeBtn {
-  position: absolute;
-  right: -10px;
-  top: -10px;
-
-  width: 20px;
-  height: 20px;
-
-  overflow: hidden;
-
-  &__cross {
-    font-size: 25px;
-
-    transform: rotate(45deg);
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
-
-    &:hover {
-      color: blue;
-      transform: rotate(225deg);
-    }
-  }
 }
