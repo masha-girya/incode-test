@@ -1,8 +1,12 @@
+@use 'src/styles/_variables.scss' as vars;
+
 @mixin card {
   width: 350px;
   height: 200px;
 
   padding: 15px 20px;
+
+  border-radius: vars.$border-radius;
 
   -webkit-box-shadow: inset 0px 0px 8px -2px rgba(0,0,0,0.7);
   -moz-box-shadow: inset 0px 0px 8px -2px rgba(0,0,0,0.7);

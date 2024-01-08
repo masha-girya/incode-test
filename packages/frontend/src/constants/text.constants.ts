@@ -22,6 +22,9 @@ export const INPUT_CONSTANTS = {
   values: {
     submit: 'Submit',
   },
+  placeholders: {
+    addBoard: 'New board name',
+  },
 };
 
 export const CONTENT_CONSTANTS = {

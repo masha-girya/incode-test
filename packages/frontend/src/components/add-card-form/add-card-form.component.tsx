@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react';
-import {
-  BOARD_COLUMNS,
-  BUTTON_CONSTANTS,
-  INPUT_CONSTANTS,
-} from 'src/constants';
-import { addCard, editCard } from 'src/api';
+import { EditCardStatus } from 'src/components';
 import { CardAction, CardStatus, ICard } from 'src/types';
+import { INPUT_CONSTANTS } from 'src/constants';
+import { addCard, editCard } from 'src/api';
+import { shouldUpdate, useBoardRequest, validateData } from 'src/utils';
 import styles from './add-card-form.module.scss';
 
 interface IProps {
@@ -13,46 +11,53 @@ interface IProps {
   boardId: string;
   action: CardAction;
   handleClose: () => void;
-  loadBoard: (id: string) => Promise<void>;
 }
 
 export const AddCardForm = (props: IProps) => {
-  const { card, boardId, action, handleClose, loadBoard } = props;
+  const { loadBoard } = useBoardRequest();
+
+  const { card, boardId, action, handleClose } = props;
 
   const [title, setTitle] = useState(card?.title ?? '');
   const [description, setDescription] = useState(card?.description ?? '');
   const [status, setStatus] = useState(card?.status ?? CardStatus.TODO);
 
-  const validateData = useCallback(() => {
-    if (title.trim().length > 0 && description.trim().length > 0) {
-      return true;
-    }
+  const getActionResult = useCallback(
+    async (action: CardAction, data: Omit<ICard, 'id'>) => {
+      switch (action) {
+        case CardAction.add:
+          return await addCard(data);
+        case CardAction.edit:
+          if (!card) {
+            return;
+          }
 
-    return false;
-  }, [title, description]);
+          const updatedCard = { ...card, ...data };
 
-  const getActionResult = async () => {
-    if (action === CardAction.add) {
-      return await addCard({ title, description, boardId });
-    }
-    if (action === CardAction.edit && card) {
-      const updatedCard = Object.assign(card, { title, description, status });
+          if (shouldUpdate(card, updatedCard)) {
+            return await editCard(updatedCard);
+          }
+      }
+    },
+    [card],
+  );
 
-      return await editCard(updatedCard);
-    }
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLDivElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const isValidData = validateData();
+      const isValidData = validateData([title, description]);
 
       if (!isValidData) {
         return;
       }
 
-      const response = await getActionResult();
+      const response = await getActionResult(action, {
+        title,
+        description,
+        status,
+        boardId,
+      });
 
       if (response) {
         loadBoard(boardId);
@@ -65,60 +70,34 @@ export const AddCardForm = (props: IProps) => {
   };
 
   return (
-    <div className={styles.addCardForm} onSubmit={handleSubmit}>
-      <button
-        type="button"
-        area-label={BUTTON_CONSTANTS.ariaLabels.close}
-        className={styles.closeBtn}
-        onClick={handleClose}
-      >
-        <div className={styles.closeBtn__cross}>+</div>
-      </button>
-
-      <form className={styles.addCardForm__form}>
-        <label className={styles.field}>
-          <p>{INPUT_CONSTANTS.labels.addInputTitle}</p>
-          <input
-            type="text"
-            className={styles.field__input}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-
-        <label className={styles.field}>
-          <p>{INPUT_CONSTANTS.labels.addInputDesk}</p>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-
-        {action === CardAction.edit && (
-          <fieldset>
-            Status:
-            {BOARD_COLUMNS.map((boardStatus) => (
-              <div className="radio" key={boardStatus}>
-                <label>
-                  <input
-                    type="radio"
-                    value={status}
-                    checked={boardStatus === status}
-                    onChange={() => setStatus(boardStatus)}
-                  />
-                  {boardStatus}
-                </label>
-              </div>
-            ))}
-          </fieldset>
-        )}
-
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <label className={styles.field}>
+        <p>{INPUT_CONSTANTS.labels.addInputTitle}</p>
         <input
-          className={styles.submitBtn}
-          type="submit"
-          value={INPUT_CONSTANTS.values.submit}
+          type="text"
+          className={styles.field__input}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
-      </form>
-    </div>
+      </label>
+
+      <label className={styles.field}>
+        <p>{INPUT_CONSTANTS.labels.addInputDesk}</p>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </label>
+
+      {action === CardAction.edit && (
+        <EditCardStatus status={status} setStatus={setStatus} />
+      )}
+
+      <input
+        className={styles.submitBtn}
+        type="submit"
+        value={INPUT_CONSTANTS.values.submit}
+      />
+    </form>
   );
 };

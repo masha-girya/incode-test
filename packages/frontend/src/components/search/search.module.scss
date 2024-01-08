@@ -3,6 +3,7 @@
 
 .search {
   display: flex;
+  align-items: flex-end;
   gap: 20px;
 
   margin-bottom: 50px;
@@ -13,7 +14,7 @@
 
     padding: 5px 10px;
 
-    border-radius: 10px;
+    border-radius: vars.$border-radius;
     border: 1px solid #dbd9d9;
 
     transition: border-color .3s ease;
@@ -26,5 +27,9 @@
       border-color: #202020;
       outline: none;
     }
+  }
+
+  &__buttonWrapper {
+    height: 35px;
   }
 }

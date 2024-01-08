@@ -2,15 +2,13 @@ import { useCallback, useState } from 'react';
 import classNames from 'classnames';
 import { AddCardForm, AddCardButton } from 'src/components';
 import { CardAction } from 'src/types';
+import { BUTTON_CONSTANTS, STORAGE_CONSTANTS } from 'src/constants';
+import { getLocalItem } from 'src/utils';
 import styles from './add-card.module.scss';
 
-interface IProps {
-  boardId: string;
-  loadBoard: (id: string) => Promise<void>;
-}
-
-export const AddCard = ({ boardId, loadBoard }: IProps) => {
+export const AddCard = () => {
   const [isOnAdd, setIsOnAdd] = useState(false);
+  const boardId = JSON.parse(getLocalItem(STORAGE_CONSTANTS.boardId) || '');
 
   const handleOpen = useCallback(() => {
     setIsOnAdd(true);
@@ -27,12 +25,22 @@ export const AddCard = ({ boardId, loadBoard }: IProps) => {
       })}
     >
       {isOnAdd ? (
-        <AddCardForm
-          handleClose={handleClose}
-          boardId={boardId}
-          loadBoard={loadBoard}
-          action={CardAction.add}
-        />
+        <div className={styles.addCard__form}>
+          <button
+            type="button"
+            area-label={BUTTON_CONSTANTS.ariaLabels.close}
+            className={styles.closeBtn}
+            onClick={handleClose}
+          >
+            <div className={styles.closeBtn__cross}>+</div>
+          </button>
+
+          <AddCardForm
+            handleClose={handleClose}
+            boardId={boardId}
+            action={CardAction.add}
+          />
+        </div>
       ) : (
         <AddCardButton handleClick={handleOpen} />
       )}
