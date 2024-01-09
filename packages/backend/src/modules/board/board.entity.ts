@@ -19,6 +19,5 @@ export class BoardEntity {
   name: string;
 
   @OneToMany(() => CardEntity, (card) => card.board, { onDelete: 'NO ACTION' })
-  // @Exclude()
   cards: CardEntity[];
 }

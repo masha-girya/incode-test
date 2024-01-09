@@ -43,7 +43,7 @@ export const removeBoard = async (id: string) => {
   }
 };
 
-export const editBoard = async (data: Pick<IBoard, 'name' | 'id'>) => {
+export const editBoard = async (data: Partial<IBoard>) => {
   const response = await sendRequest(() =>
     axios.patch(
       `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${data.id}`,

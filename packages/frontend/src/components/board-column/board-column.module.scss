@@ -21,5 +21,15 @@
 
     background-color: vars.$color-board-background;
     border-radius: vars.$border-radius;
+
+    &_noCards {
+      gap: 0;
+    }
+
+    &_droppable {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 }
