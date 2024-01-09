@@ -36,8 +36,9 @@ export class BoardService {
     return boardIds;
   }
 
-  async addBoard() {
+  async addBoard(name: string) {
     const createdBoard = new BoardEntity();
+    createdBoard.name = name;
 
     await this.boardRepository.save(createdBoard);
 

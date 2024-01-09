@@ -1,13 +1,7 @@
 .board {
-  &__boardID {
-    font-weight: 600;
-
-    margin-bottom: 30px;
-
-    span {
-      font-weight: 400;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   &__boardColumns {
     display: flex;

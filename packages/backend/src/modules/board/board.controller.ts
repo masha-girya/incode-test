@@ -26,8 +26,8 @@ export class BoardController {
   }
 
   @Post()
-  addBoard() {
-    return this.boardService.addBoard();
+  addBoard(@Body() data: Pick<BoardDto, 'name'>) {
+    return this.boardService.addBoard(data.name);
   }
 
   @Patch(ROUTES.ID)
@@ -36,7 +36,7 @@ export class BoardController {
   }
 
   @Delete(ROUTES.ID)
-  removeDish(@Param('id') id: string) {
+  removeBoard(@Param('id') id: string) {
     return this.boardService.removeBoard(id);
   }
 }

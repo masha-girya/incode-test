@@ -1,12 +1,14 @@
-import { useCallback } from 'react';
-import { BoardColumn } from 'src/components';
+import { useCallback, useEffect } from 'react';
+import { BoardColumn, BoardInfo, DeleteBoard } from 'src/components';
 import { useAppSelector } from 'src/store';
 import { CardStatus, ICard } from 'src/types';
 import { BOARD_COLUMNS } from 'src/constants';
+import { useBoardRequest } from 'src/utils';
 import styles from './board.module.scss';
 
 export const Board = () => {
-  const { board } = useAppSelector((state) => state.board);
+  const { board, boardId } = useAppSelector((state) => state.board);
+  const { loadBoard } = useBoardRequest();
 
   const getCardsWithStatus = useCallback(
     (status: CardStatus, cardsData: ICard[]) => {
@@ -15,11 +17,16 @@ export const Board = () => {
     [],
   );
 
+  useEffect(() => {
+    if (boardId.length > 0) {
+      loadBoard(boardId);
+    }
+  }, []);
+
   return board ? (
     <div className={styles.board}>
-      <p className={styles.board__boardID}>
-        Current board ID: <span>{board.id}</span>
-      </p>
+      <BoardInfo board={board} />
+      <DeleteBoard />
       <div className={styles.board__boardColumns}>
         {BOARD_COLUMNS.map((column) => (
           <BoardColumn

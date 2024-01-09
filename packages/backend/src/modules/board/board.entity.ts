@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   CreateDateColumn,
+  Column,
 } from 'typeorm';
 import { CardEntity } from '../card';
 
@@ -14,8 +15,8 @@ export class BoardEntity {
   @CreateDateColumn()
   createdDate: Date;
 
-  // @Column('uuid')
-  // cardsIds: string[];
+  @Column('character varying')
+  name: string;
 
   @OneToMany(() => CardEntity, (card) => card.board, { onDelete: 'NO ACTION' })
   // @Exclude()
