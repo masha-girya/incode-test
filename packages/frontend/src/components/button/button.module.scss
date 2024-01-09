@@ -1,6 +1,9 @@
 @use 'src/styles/_variables.scss' as vars;
 
 .button {
+  display: flex;
+  align-items: center;
+
   height: 100%;
 
   padding: 5px 20px;

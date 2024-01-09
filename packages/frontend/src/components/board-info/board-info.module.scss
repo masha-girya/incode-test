@@ -1,0 +1,30 @@
+.boardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__text {
+    font-weight: 600;
+
+    span {
+      font-weight: 400;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+
+    &_close {
+      transform: rotate(45deg);
+    }
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    height: 35px;
+  }
+}

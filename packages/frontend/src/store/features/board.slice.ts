@@ -4,7 +4,8 @@ import { getLocalItem } from 'src/utils';
 import { STORAGE_CONSTANTS } from 'src/constants';
 import { IBoard } from '@/types';
 
-const boardId = JSON.parse(getLocalItem(STORAGE_CONSTANTS.boardId) || '');
+const localStorageId = getLocalItem(STORAGE_CONSTANTS.boardId);
+const boardId = localStorageId ? JSON.parse(localStorageId) : '';
 const board = null;
 
 interface IInitialState {

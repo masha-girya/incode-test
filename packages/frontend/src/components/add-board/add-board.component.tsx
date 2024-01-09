@@ -3,7 +3,7 @@ import { Button, Input } from 'src/components';
 import { IBoardIds } from 'src/types';
 import { BUTTON_CONSTANTS, INPUT_CONSTANTS } from 'src/constants';
 import { addBoard } from 'src/api';
-import { useBoardRequest } from 'src/utils';
+import { useBoardRequest, validateData } from 'src/utils';
 import styles from './add-board.module.scss';
 
 interface IProps {
@@ -15,6 +15,12 @@ export const AddBoard = ({ setBoardIds }: IProps) => {
   const [boardName, setBoardName] = useState('');
 
   const createBoard = async () => {
+    const isValidName = validateData([boardName]);
+
+    if (!isValidName) {
+      return;
+    }
+
     const board = await addBoard(boardName);
 
     if (board) {

@@ -20,11 +20,6 @@ export class CardController {
     return this.cardService.getCard(id);
   }
 
-  @Get()
-  getCardById2() {
-    return 'CARD';
-  }
-
   @Post()
   addCard(@Body() updatedCardDto: CardDto) {
     return this.cardService.addCard(updatedCardDto);
@@ -36,7 +31,7 @@ export class CardController {
   }
 
   @Delete(ROUTES.ID)
-  removeDish(@Param('id') id: string) {
+  removeCard(@Param('id') id: string) {
     return this.cardService.removeCard(id);
   }
 }

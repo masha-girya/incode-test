@@ -8,7 +8,9 @@ export const getBoardIds = async () => {
     axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.allBoards}`),
   );
 
-  return boardIds.data;
+  if (boardIds) {
+    return boardIds.data;
+  }
 };
 
 export const getBoarById = async (id: string) => {
@@ -16,7 +18,9 @@ export const getBoarById = async (id: string) => {
     axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${id}`),
   );
 
-  return board.data;
+  if (board) {
+    return board.data;
+  }
 };
 
 export const addBoard = async (name: string) => {
@@ -24,5 +28,30 @@ export const addBoard = async (name: string) => {
     axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}`, { name }),
   );
 
-  return board.data;
+  if (board) {
+    return board.data;
+  }
+};
+
+export const removeBoard = async (id: string) => {
+  const board: AxiosResponse<boolean> = await sendRequest(() =>
+    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${id}`),
+  );
+
+  if (board) {
+    return board.data;
+  }
+};
+
+export const editBoard = async (data: Pick<IBoard, 'name' | 'id'>) => {
+  const response = await sendRequest(() =>
+    axios.patch(
+      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${data.id}`,
+      data,
+    ),
+  );
+
+  if (response) {
+    return response.data;
+  }
 };
