@@ -6,6 +6,7 @@ export interface ICard {
   description: string;
   boardId: string;
   status: CardStatus;
+  order: number;
 }
 
 export interface ICardRequest extends Omit<ICard, 'id' | 'status'> {}

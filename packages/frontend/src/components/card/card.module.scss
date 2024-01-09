@@ -17,7 +17,8 @@
   }
 
   &__info {
-    width: max-content;
+    width: 100%;
+    overflow: hidden;
 
     &__title,
     &__desc {

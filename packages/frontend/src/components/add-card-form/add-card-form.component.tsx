@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { EditCardStatus } from 'src/components';
+import { useAppSelector } from 'src/store';
 import { CardAction, CardStatus, ICard } from 'src/types';
 import { INPUT_CONSTANTS } from 'src/constants';
 import { addCard, editCard } from 'src/api';
@@ -15,8 +16,9 @@ interface IProps {
 
 export const AddCardForm = (props: IProps) => {
   const { loadBoard } = useBoardRequest();
+  const { board, boardId } = useAppSelector((state) => state.board);
 
-  const { card, boardId, action, handleClose } = props;
+  const { card, action, handleClose } = props;
 
   const [title, setTitle] = useState(card?.title ?? '');
   const [description, setDescription] = useState(card?.description ?? '');
@@ -57,6 +59,9 @@ export const AddCardForm = (props: IProps) => {
         description,
         status,
         boardId,
+        order:
+          board?.cards.filter((card) => card.status === CardStatus.TODO)
+            .length || 0,
       });
 
       if (response) {

@@ -13,7 +13,7 @@ export const addCard = async (data: ICardRequest) => {
   }
 };
 
-export const editCard = async (data: ICard) => {
+export const editCard = async (data: Partial<ICard>) => {
   const response = await sendRequest(() =>
     axios.patch(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${data.id}`, data),
   );

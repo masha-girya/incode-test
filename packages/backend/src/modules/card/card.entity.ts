@@ -23,6 +23,9 @@ export class CardEntity {
   @Column('character varying')
   description: string;
 
+  @Column('int', { default: 0 })
+  order: number;
+
   @Column({
     type: 'enum',
     enum: CardStatus,
