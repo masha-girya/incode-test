@@ -1,10 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { EditCardStatus } from 'src/components';
 import { useAppSelector } from 'src/store';
 import { CardAction, CardStatus, ICard } from 'src/types';
 import { INPUT_CONSTANTS } from 'src/constants';
-import { addCard, editCard } from 'src/api';
-import { shouldUpdate, useBoardRequest, validateData } from 'src/utils';
+import { useBoardDispatch, validateData, useCardUpdate } from 'src/utils';
 import styles from './add-card-form.module.scss';
 
 interface IProps {
@@ -15,63 +14,76 @@ interface IProps {
 }
 
 export const AddCardForm = (props: IProps) => {
-  const { loadBoard } = useBoardRequest();
+  const { card, action, handleClose } = props;
   const { board, boardId } = useAppSelector((state) => state.board);
 
-  const { card, action, handleClose } = props;
+  const { handleEditCard, handleAddCard } = useCardUpdate();
+  const boardDispatch = useBoardDispatch();
 
-  const [title, setTitle] = useState(card?.title ?? '');
-  const [description, setDescription] = useState(card?.description ?? '');
-  const [status, setStatus] = useState(card?.status ?? CardStatus.TODO);
-
-  const getActionResult = useCallback(
-    async (action: CardAction, data: Omit<ICard, 'id'>) => {
-      switch (action) {
-        case CardAction.add:
-          return await addCard(data);
-        case CardAction.edit:
-          if (!card) {
-            return;
-          }
-
-          const updatedCard = { ...card, ...data };
-
-          if (shouldUpdate(card, updatedCard)) {
-            return await editCard(updatedCard);
-          }
-      }
-    },
-    [card],
-  );
+  const [updatedCard, setUpdatedCard] = useState({
+    title: card?.title ?? '',
+    description: card?.description ?? '',
+    status: card?.status ?? CardStatus.TODO,
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!board) {
+      return;
+    }
+
+    const isValidData = validateData([
+      updatedCard.title,
+      updatedCard.description,
+    ]);
+
+    if (!isValidData) {
+      return;
+    }
+
     try {
-      const isValidData = validateData([title, description]);
+      switch (action) {
+        case CardAction.edit:
+          const editedCards = await handleEditCard(
+            {
+              ...(card as ICard),
+              ...updatedCard,
+            },
+            board,
+            card as ICard,
+          );
 
-      if (!isValidData) {
-        return;
-      }
+          boardDispatch({ ...board, cards: editedCards });
+          break;
 
-      const response = await getActionResult(action, {
-        title,
-        description,
-        status,
-        boardId,
-        order:
-          board?.cards.filter((card) => card.status === CardStatus.TODO)
-            .length || 0,
-      });
+        case CardAction.add:
+          const newCardRes = await handleAddCard(
+            {
+              ...updatedCard,
+              boardId,
+              order: board.cards.filter(
+                (card) => card.status === CardStatus.TODO,
+              ).length,
+            },
+            board,
+          );
 
-      if (response) {
-        loadBoard(boardId);
+          boardDispatch({ ...board, cards: newCardRes });
+          break;
+
+        default:
+          break;
       }
     } catch (error) {
       console.error(error);
     } finally {
       handleClose();
     }
+  };
+
+  const handleUpdate = (key: keyof typeof updatedCard, value: any) => {
+    setUpdatedCard((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
@@ -81,21 +93,21 @@ export const AddCardForm = (props: IProps) => {
         <input
           type="text"
           className={styles.field__input}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={updatedCard.title}
+          onChange={(e) => handleUpdate('title', e.target.value)}
         />
       </label>
 
       <label className={styles.field}>
         <p>{INPUT_CONSTANTS.labels.addInputDesk}</p>
         <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={updatedCard.description}
+          onChange={(e) => handleUpdate('description', e.target.value)}
         />
       </label>
 
       {action === CardAction.edit && (
-        <EditCardStatus status={status} setStatus={setStatus} />
+        <EditCardStatus status={updatedCard.status} setStatus={handleUpdate} />
       )}
 
       <input

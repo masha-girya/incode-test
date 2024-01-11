@@ -7,10 +7,11 @@ import {
   EditIcon,
   TrashIcon,
 } from 'src/components';
+import { useAppSelector } from 'src/store';
 import { CardAction, ICard } from 'src/types';
 import { BUTTON_CONSTANTS } from 'src/constants';
 import { deleteCard } from 'src/api';
-import { useBoardRequest } from 'src/utils';
+import { useBoardDispatch } from 'src/utils';
 import styles from './card.module.scss';
 
 interface IProps {
@@ -19,16 +20,23 @@ interface IProps {
 
 export const Card = ({ cardInfo }: IProps) => {
   const { title, description, boardId, id } = cardInfo;
+  const { board } = useAppSelector((state) => state.board);
 
-  const { loadBoard } = useBoardRequest();
+  const boardDispatch = useBoardDispatch();
 
   const [onEdit, setOnEdit] = useState(false);
   const [onDelete, setOnDelete] = useState(false);
 
   const removeCard = useCallback(async () => {
     await deleteCard(id);
-    loadBoard(boardId);
-  }, [id, boardId]);
+
+    if (board) {
+      boardDispatch({
+        ...board,
+        cards: board.cards.filter((card) => card.id !== id),
+      });
+    }
+  }, [id, board]);
 
   return (
     <div className={classNames(styles.card, { [styles.card_onEdit]: onEdit })}>

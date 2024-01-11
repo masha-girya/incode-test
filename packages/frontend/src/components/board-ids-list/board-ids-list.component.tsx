@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { IBoardIds } from 'src/types';
 import { getBoardIds } from 'src/api';
 import { INPUT_CONSTANTS } from 'src/constants';
@@ -14,15 +14,15 @@ interface IProps {
 export const BoardIdsList = (props: IProps) => {
   const { boardIds, activeBoardId, setActiveBoardId, setBoardIds } = props;
 
-  const loadBoardIds = useCallback(async () => {
-    const boardIdsData = await getBoardIds();
-
-    if (boardIdsData) {
-      setBoardIds(boardIdsData);
-    }
-  }, []);
-
   useEffect(() => {
+    const loadBoardIds = async () => {
+      const boardIdsData = await getBoardIds();
+
+      if (boardIdsData) {
+        setBoardIds(boardIdsData);
+      }
+    };
+
     loadBoardIds();
   }, []);
 

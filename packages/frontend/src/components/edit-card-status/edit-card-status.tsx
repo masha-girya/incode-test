@@ -3,7 +3,7 @@ import { BOARD_COLUMNS } from 'src/constants';
 
 interface IProps {
   status: CardStatus;
-  setStatus: React.Dispatch<React.SetStateAction<CardStatus>>;
+  setStatus: (key: 'title' | 'description' | 'status', event: any) => void;
 }
 
 export const EditCardStatus = (props: IProps) => {
@@ -17,9 +17,9 @@ export const EditCardStatus = (props: IProps) => {
           <label>
             <input
               type="radio"
-              value={status}
+              value={boardStatus}
               checked={boardStatus === status}
-              onChange={() => setStatus(boardStatus)}
+              onChange={(e) => setStatus('status', e.target.value)}
             />
             {boardStatus}
           </label>
