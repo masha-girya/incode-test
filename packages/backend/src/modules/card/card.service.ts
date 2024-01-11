@@ -80,7 +80,9 @@ export class CardService {
       throw new NotFoundException();
     }
 
-    await this.cardRepository.save(updatedCardDto);
+    Object.assign(card, updatedCardDto);
+
+    await this.cardRepository.save(card);
 
     return card;
   }

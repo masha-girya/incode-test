@@ -13,7 +13,7 @@ interface IProps {
 export const Search = (props: IProps) => {
   const { boardIds, setBoardIds } = props;
 
-  const { loadBoard } = useBoardRequest();
+  const loadBoard = useBoardRequest();
 
   const [activeBoardId, setActiveBoardId] = useState('None');
   const [query, setQuery] = useState('');

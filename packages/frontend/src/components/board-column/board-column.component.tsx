@@ -30,21 +30,19 @@ export const BoardColumn = (props: IProps) => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {cards
-                .sort((a, b) => a.order - b.order)
-                .map((card, index) => (
-                  <Draggable draggableId={card.id} key={card.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                      >
-                        <Card cardInfo={card} />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+              {cards.map((card, index) => (
+                <Draggable draggableId={card.id} key={card.id} index={index}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                    >
+                      <Card cardInfo={card} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
 
               {provided.placeholder}
             </div>

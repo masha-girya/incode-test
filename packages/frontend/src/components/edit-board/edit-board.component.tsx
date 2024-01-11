@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input } from 'src/components';
 import { IBoard } from 'src/types';
 import { editBoard } from 'src/api';
-import { useBoardRequest, validateData } from 'src/utils';
+import { useBoardDispatch, validateData } from 'src/utils';
 import { INPUT_CONSTANTS } from 'src/constants';
 import styles from './edit-board.module.scss';
 
@@ -13,7 +13,8 @@ interface IProps {
 
 export const EditBoard = ({ board, handleEditOpen }: IProps) => {
   const { name, id } = board;
-  const { loadBoard } = useBoardRequest();
+
+  const boardDispatch = useBoardDispatch();
 
   const [newName, setNewName] = useState(name);
 
@@ -24,7 +25,7 @@ export const EditBoard = ({ board, handleEditOpen }: IProps) => {
       const response = await editBoard({ id, name: newName });
 
       if (response) {
-        loadBoard(id);
+        boardDispatch(response);
         handleEditOpen();
       }
     }

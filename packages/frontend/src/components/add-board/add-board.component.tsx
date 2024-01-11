@@ -3,7 +3,7 @@ import { Button, Input } from 'src/components';
 import { IBoardIds } from 'src/types';
 import { BUTTON_CONSTANTS, INPUT_CONSTANTS } from 'src/constants';
 import { addBoard } from 'src/api';
-import { useBoardRequest, validateData } from 'src/utils';
+import { validateData, useBoardDispatch } from 'src/utils';
 import styles from './add-board.module.scss';
 
 interface IProps {
@@ -11,7 +11,8 @@ interface IProps {
 }
 
 export const AddBoard = ({ setBoardIds }: IProps) => {
-  const { loadBoard } = useBoardRequest();
+  const boardDispatch = useBoardDispatch();
+
   const [boardName, setBoardName] = useState('');
 
   const createBoard = async () => {
@@ -24,7 +25,7 @@ export const AddBoard = ({ setBoardIds }: IProps) => {
     const board = await addBoard(boardName);
 
     if (board) {
-      loadBoard(board.id);
+      boardDispatch(board);
       setBoardIds((prev) => [{ id: board.id }, ...prev]);
     }
   };

@@ -3,6 +3,7 @@ export * from './add-card';
 export * from './add-card-button';
 export * from './add-card-form';
 export * from './board';
+export * from './board-droppable';
 export * from './board-info';
 export * from './board-column';
 export * from './board-ids-list';
