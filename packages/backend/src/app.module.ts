@@ -9,7 +9,7 @@ import { CardEntity, CardModule } from './modules/card';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
-        // host: DB.HOST,
+        host: DB.HOST,
         username: DB.USERNAME,
         password: DB.PASSWORD,
         database: DB.NAME,
