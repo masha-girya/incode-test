@@ -11,15 +11,22 @@
   font-weight: 600;
   font-size: 16px;
   text-align: center;
+  color: #fff;
 
   border-radius: vars.$border-radius;
 
-  background-color: #dbd9d9;
+  background-color: vars.$color-button_back;
 
   transition: background-color 0.3s ease;
 
+  svg {
+    path {
+      fill: #fff;
+    }
+  }
+
   &:hover, &_active {
-    background-color: vars.$color-board-background;
+    background-color: vars.$color-button-hover-active;
   }
 
   &_withIcon {
@@ -41,6 +48,7 @@
     background-color: transparent;
 
     font-weight: 400;
+    color: #000;
   
     overflow: hidden;
 

@@ -40,10 +40,12 @@ export const AddBoard = ({ setBoardIds }: IProps) => {
           handleChange={setBoardName}
         />
       </div>
-      <Button
-        name={BUTTON_CONSTANTS.NAMES.ADD_BOARD}
-        handleClick={createBoard}
-      />
+      <div className={styles.addBoard__button}>
+        <Button
+          name={BUTTON_CONSTANTS.NAMES.ADD_BOARD}
+          handleClick={createBoard}
+        />
+      </div>
     </div>
   );
 };

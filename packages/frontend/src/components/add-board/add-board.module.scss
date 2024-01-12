@@ -1,3 +1,5 @@
+@use 'src/styles/_mixins.scss';
+
 .addBoard {
   display: flex;
   align-items: center;
@@ -7,7 +9,20 @@
 
   margin-bottom: 50px;
 
+  @include mixins.mediaMobile {
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: 80px;
+  }
+
   &__input {
     width: 300px;
+  }
+
+  &__button {
+    @include mixins.mediaMobile {
+      min-height: 35px;
+    }
   }
 }

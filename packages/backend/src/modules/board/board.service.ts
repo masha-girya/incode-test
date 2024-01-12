@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardDto, BoardEntity } from '../board';
+import { CardStatus } from 'src/types';
+import { getCardsSorted } from './board.helper';
 
 @Injectable()
 export class BoardService {
@@ -20,7 +22,14 @@ export class BoardService {
       throw new NotFoundException();
     }
 
-    return board;
+    const cardsTodo = getCardsSorted(board.cards, CardStatus.TODO);
+    const cardsInProgress = getCardsSorted(board.cards, CardStatus.IN_PROGRESS);
+    const cardsDone = getCardsSorted(board.cards, CardStatus.DONE);
+
+    return {
+      ...board,
+      cards: [...cardsTodo, ...cardsInProgress, ...cardsDone],
+    };
   }
 
   async getAllBoardIds() {

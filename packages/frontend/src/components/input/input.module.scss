@@ -16,7 +16,7 @@
   }
 
   &:focus {
-    border-color: #202020;
+    border-color: vars.$color-input-focus;
     outline: none;
   }
 }

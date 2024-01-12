@@ -12,7 +12,7 @@ export const useCardUpdate = () => {
       const newCardData = await sendRequest(() => editCard(updatedCard));
 
       return board.cards.map((card) =>
-        oldCard.id === newCardData.id ? { ...newCardData } : card,
+        oldCard.id === card.id ? newCardData : card,
       );
     }
 

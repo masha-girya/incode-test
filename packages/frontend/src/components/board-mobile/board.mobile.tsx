@@ -17,6 +17,7 @@ export const BoardMobile = ({ cards }: IProps) => {
       <div className={styles.boardMobile__buttons}>
         {BOARD_COLUMNS.map((column) => (
           <Button
+            key={column}
             name={column}
             isActive={column === columnOnShow}
             handleClick={() => setColumnOnShow(column)}

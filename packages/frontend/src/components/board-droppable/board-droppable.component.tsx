@@ -48,7 +48,7 @@ export const BoardDroppable = ({ board }: IProps) => {
 
       boardDispatch({
         ...board,
-        cards: cardsToDisplay.slice(),
+        cards: cardsToDisplay,
       });
 
       await sendRequest(() =>
