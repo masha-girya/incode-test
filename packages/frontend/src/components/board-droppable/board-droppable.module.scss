@@ -1,5 +1,11 @@
-.boardDroppable {
+@use 'src/styles/_mixins.scss';
+
+.boardDesktop {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+
+  @include mixins.mediaTablet {
+    display: none;
+  }
 }

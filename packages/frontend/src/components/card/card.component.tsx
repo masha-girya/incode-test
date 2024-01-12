@@ -11,7 +11,7 @@ import { useAppSelector } from 'src/store';
 import { CardAction, ICard } from 'src/types';
 import { BUTTON_CONSTANTS } from 'src/constants';
 import { deleteCard } from 'src/api';
-import { useBoardDispatch } from 'src/utils';
+import { sendRequest, useBoardDispatch } from 'src/utils';
 import styles from './card.module.scss';
 
 interface IProps {
@@ -19,7 +19,7 @@ interface IProps {
 }
 
 export const Card = ({ cardInfo }: IProps) => {
-  const { title, description, boardId, id } = cardInfo;
+  const { title, description, id } = cardInfo;
   const { board } = useAppSelector((state) => state.board);
 
   const boardDispatch = useBoardDispatch();
@@ -28,7 +28,7 @@ export const Card = ({ cardInfo }: IProps) => {
   const [onDelete, setOnDelete] = useState(false);
 
   const removeCard = useCallback(async () => {
-    await deleteCard(id);
+    await sendRequest(() => deleteCard(id));
 
     if (board) {
       boardDispatch({
@@ -42,7 +42,6 @@ export const Card = ({ cardInfo }: IProps) => {
     <div className={classNames(styles.card, { [styles.card_onEdit]: onEdit })}>
       {onEdit ? (
         <AddCardForm
-          boardId={boardId}
           handleClose={() => setOnEdit(false)}
           action={CardAction.edit}
           card={cardInfo}
@@ -57,17 +56,15 @@ export const Card = ({ cardInfo }: IProps) => {
       {!onEdit && !onDelete && (
         <div className={styles.card__buttons}>
           <Button
-            name=""
             handleClick={() => setOnEdit(true)}
             Icon={<EditIcon className={styles.iconBtn} />}
-            aria-label={BUTTON_CONSTANTS.ariaLabels.edit}
+            aria-label={BUTTON_CONSTANTS.ARIA_LABELS.EDIT_TODO}
             isSmallIcon
           />
           <Button
-            name=""
             handleClick={() => setOnDelete(true)}
             Icon={<TrashIcon className={styles.iconBtn} />}
-            aria-label={BUTTON_CONSTANTS.ariaLabels.edit}
+            aria-label={BUTTON_CONSTANTS.ARIA_LABELS.EDIT_TODO}
             isSmallIcon
           />
         </div>

@@ -5,7 +5,7 @@ import { sendRequest } from 'src/utils';
 
 export const getBoardIds = async () => {
   const boardIds: AxiosResponse<IBoardIds[]> = await sendRequest(() =>
-    axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.allBoards}`),
+    axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.ALL_BOARDS}`),
   );
 
   if (boardIds) {
@@ -15,7 +15,7 @@ export const getBoardIds = async () => {
 
 export const getBoarById = async (id: string) => {
   const board: AxiosResponse<IBoard> = await sendRequest(() =>
-    axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${id}`),
+    axios.get(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.BOARD}/${id}`),
   );
 
   if (board) {
@@ -25,7 +25,7 @@ export const getBoarById = async (id: string) => {
 
 export const addBoard = async (name: string) => {
   const board: AxiosResponse<IBoard> = await sendRequest(() =>
-    axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}`, { name }),
+    axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.BOARD}`, { name }),
   );
 
   if (board) {
@@ -35,7 +35,7 @@ export const addBoard = async (name: string) => {
 
 export const removeBoard = async (id: string) => {
   const board: AxiosResponse<boolean> = await sendRequest(() =>
-    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${id}`),
+    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.BOARD}/${id}`),
   );
 
   if (board) {
@@ -46,7 +46,7 @@ export const removeBoard = async (id: string) => {
 export const editBoard = async (data: Partial<IBoard>) => {
   const response = await sendRequest(() =>
     axios.patch(
-      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.board}/${data.id}`,
+      `${API_ENDPOINT}/${API_ENDPOINT_ROUTES.BOARD}/${data.id}`,
       data,
     ),
   );

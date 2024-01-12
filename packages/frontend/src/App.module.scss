@@ -1,3 +1,11 @@
+@use 'src/styles/_mixins.scss';
+
 .App {
-  padding: 50px 100px;
+  padding: 50px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include mixins.mediaTablet {
+    padding: 30px;
+  }
 }

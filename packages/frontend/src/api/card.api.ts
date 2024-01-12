@@ -5,7 +5,7 @@ import { sendRequest } from 'src/utils';
 
 export const addCard = async (data: ICardRequest) => {
   const response = await sendRequest(() =>
-    axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}`, data),
+    axios.post(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.CARD}`, data),
   );
 
   if (response) {
@@ -15,7 +15,7 @@ export const addCard = async (data: ICardRequest) => {
 
 export const editCard = async (data: Partial<ICard>) => {
   const response = await sendRequest(() =>
-    axios.patch(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${data.id}`, data),
+    axios.patch(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.CARD}/${data.id}`, data),
   );
 
   if (response) {
@@ -25,7 +25,7 @@ export const editCard = async (data: Partial<ICard>) => {
 
 export const deleteCard = async (id: string) => {
   const response = await sendRequest(() =>
-    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.card}/${id}`),
+    axios.delete(`${API_ENDPOINT}/${API_ENDPOINT_ROUTES.CARD}/${id}`),
   );
 
   if (response) {

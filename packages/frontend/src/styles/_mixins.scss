@@ -1,8 +1,9 @@
 @use 'src/styles/_variables.scss' as vars;
 
 @mixin card {
-  width: 350px;
-  height: 200px;
+  max-width: vars.$card-max-width;
+  min-width: vars.$card-min-width;
+  height: vars.$card-height;
 
   padding: 15px 20px;
 
@@ -13,4 +14,26 @@
   box-shadow: inset 0px 0px 8px -2px rgba(0,0,0,0.7);
 
   background-color: #f0f0f0;
+
+  @include mediaTablet() {
+    max-width: vars.$card-max-width-mobile;
+  }
+}
+
+@mixin mediaNoteBook {
+  @media only screen and (max-width: 1000px) {
+   @content;
+  }
+}
+
+@mixin mediaTablet {
+  @media only screen and (max-width: 870px) {
+   @content;
+  }
+}
+
+@mixin mediaMobile {
+  @media only screen and (max-width: 450px) {
+   @content;
+  }
 }

@@ -1,0 +1,28 @@
+@use 'src/styles/_mixins.scss';
+
+.boardMobile {
+  display: none;
+  margin-top: 30px;
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    margin-bottom: 30px;
+
+    button {
+      text-transform: capitalize;
+    }
+
+    @include mixins.mediaMobile {
+      gap: 20px;
+    }
+  }
+
+  @include mixins.mediaTablet {
+    display: block;
+
+    width: 100%;
+  }
+}

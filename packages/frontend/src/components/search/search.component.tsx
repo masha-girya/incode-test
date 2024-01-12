@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, BoardIdsList, Input } from 'src/components';
 import { IBoardIds } from 'src/types';
-import { BUTTON_CONSTANTS } from 'src/constants';
+import { BUTTON_CONSTANTS, INPUT_CONSTANTS } from 'src/constants';
 import { useBoardRequest } from 'src/utils';
 import styles from './search.module.scss';
 
@@ -37,8 +37,15 @@ export const Search = (props: IProps) => {
 
   return (
     <div>
-      <div className={styles.search}>
-        <Input type="search" value={query} handleChange={setQuery} />
+      <form className={styles.search} onSubmit={(e) => e.preventDefault()}>
+        <div className={styles.search__input}>
+          <Input
+            type="search"
+            placeholder={INPUT_CONSTANTS.PLACEHOLDERS.SEARCH_BOARD}
+            value={query}
+            handleChange={setQuery}
+          />
+        </div>
         <BoardIdsList
           boardIds={boardIds}
           setBoardIds={setBoardIds}
@@ -47,11 +54,12 @@ export const Search = (props: IProps) => {
         />
         <div className={styles.search__buttonWrapper}>
           <Button
-            name={BUTTON_CONSTANTS.names.search}
+            type="submit"
+            name={BUTTON_CONSTANTS.NAMES.SEARCH}
             handleClick={handleSearch}
           />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

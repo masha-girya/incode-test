@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { IBoardIds } from 'src/types';
 import { getBoardIds } from 'src/api';
+import { sendRequest } from 'src/utils';
 import { INPUT_CONSTANTS } from 'src/constants';
 import styles from './board-ids-list.module.scss';
 
@@ -16,7 +17,7 @@ export const BoardIdsList = (props: IProps) => {
 
   useEffect(() => {
     const loadBoardIds = async () => {
-      const boardIdsData = await getBoardIds();
+      const boardIdsData = await sendRequest(() => getBoardIds());
 
       if (boardIdsData) {
         setBoardIds(boardIdsData);
@@ -28,16 +29,14 @@ export const BoardIdsList = (props: IProps) => {
 
   return (
     <label>
-      {INPUT_CONSTANTS.labels.boardSelection}
+      {INPUT_CONSTANTS.LABELS.CHOOSE_BOARD_ID}
       <select
         value={activeBoardId}
         onChange={(event) => setActiveBoardId(event.target.value)}
         className={styles.selection}
       >
         {[{ id: 'None' }, ...boardIds].map((boardId) => (
-          <option key={boardId.id} className={styles.selection__ids}>
-            {boardId.id}
-          </option>
+          <option key={boardId.id}>{boardId.id}</option>
         ))}
       </select>
     </label>

@@ -1,25 +1,26 @@
-import { BUTTON_CONSTANTS, STORAGE_CONSTANTS } from 'src/constants';
 import { Button } from 'src/components';
 import { useAppSelector } from 'src/store';
 import { removeBoard } from 'src/api';
-import { removeLocalItems } from 'src/utils';
+import { removeLocalItems, sendRequest } from 'src/utils';
+import { BUTTON_CONSTANTS, STORAGE_CONSTANTS } from 'src/constants';
+import { useCallback } from 'react';
 
 export const DeleteBoard = () => {
   const { boardId } = useAppSelector((state) => state.board);
 
-  const deleteBoard = async () => {
-    const response = await removeBoard(boardId);
+  const deleteBoard = useCallback(async () => {
+    const response = await sendRequest(() => removeBoard(boardId));
 
     if (response) {
-      removeLocalItems([STORAGE_CONSTANTS.boardId]);
+      removeLocalItems([STORAGE_CONSTANTS.BOARD_ID]);
       window.location.reload();
     }
-  };
+  }, [boardId]);
 
   return (
     <div>
       <Button
-        name={BUTTON_CONSTANTS.names.deleteBoard}
+        name={BUTTON_CONSTANTS.NAMES.DELETE_BOARD}
         handleClick={deleteBoard}
       />
     </div>

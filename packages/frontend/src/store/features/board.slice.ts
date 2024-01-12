@@ -4,7 +4,7 @@ import { getLocalItem } from 'src/utils';
 import { STORAGE_CONSTANTS } from 'src/constants';
 import { IBoard } from '@/types';
 
-const localStorageId = getLocalItem(STORAGE_CONSTANTS.boardId);
+const localStorageId = getLocalItem(STORAGE_CONSTANTS.BOARD_ID);
 const boardId = localStorageId ? JSON.parse(localStorageId) : '';
 const board = null;
 

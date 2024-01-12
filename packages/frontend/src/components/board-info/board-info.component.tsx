@@ -21,19 +21,18 @@ export const BoardInfo = ({ board }: IProps) => {
   return (
     <div className={styles.boardInfo}>
       <p className={styles.boardInfo__text}>
-        {CONTENT_CONSTANTS.boardId}
+        {CONTENT_CONSTANTS.BOARD_ID}
         <span>{id}</span>
       </p>
 
       <div className={styles.boardInfo__name}>
         <p className={styles.boardInfo__text}>
-          {CONTENT_CONSTANTS.boardName}
+          {CONTENT_CONSTANTS.BOARD_NAME}
           <span>{name}</span>
         </p>
 
         <Button
-          name=""
-          ariaLabel={BUTTON_CONSTANTS.ariaLabels.editBoard}
+          ariaLabel={BUTTON_CONSTANTS.ARIA_LABELS.EDIT_BOARD}
           Icon={
             isOnEdit ? (
               <PlusIcon

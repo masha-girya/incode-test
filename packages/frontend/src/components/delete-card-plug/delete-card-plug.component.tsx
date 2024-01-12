@@ -12,11 +12,11 @@ export const DeleteCardPlug = (props: IProps) => {
 
   return (
     <div className={styles.deletePlug}>
-      <p className={styles.deletePlug__text}>{CONTENT_CONSTANTS.deleteCard}</p>
+      <p className={styles.deletePlug__text}>{CONTENT_CONSTANTS.DELETE_CARD}</p>
 
       <div className={styles.deletePlug__buttons}>
-        <Button name={BUTTON_CONSTANTS.names.yes} handleClick={handleDelete} />
-        <Button name={BUTTON_CONSTANTS.names.no} handleClick={handleClose} />
+        <Button name={BUTTON_CONSTANTS.NAMES.YES} handleClick={handleDelete} />
+        <Button name={BUTTON_CONSTANTS.NAMES.NO} handleClick={handleClose} />
       </div>
     </div>
   );

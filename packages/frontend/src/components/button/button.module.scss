@@ -18,7 +18,7 @@
 
   transition: background-color 0.3s ease;
 
-  &:hover {
+  &:hover, &_active {
     background-color: vars.$color-board-background;
   }
 
@@ -28,5 +28,38 @@
 
   &_smallIcon {
     padding: 5px 8px;
+  }
+
+  &_closeBtn {
+    position: absolute;
+    right: -10px;
+    top: -7px;
+  
+    width: 20px;
+    height: 20px;
+
+    background-color: transparent;
+
+    font-weight: 400;
+  
+    overflow: hidden;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &__cross {
+      font-size: 25px;
+  
+      transform: rotate(45deg);
+      transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+  
+      &:hover {
+        color: blue;
+        transform: rotate(225deg);
+      }
+    }
   }
 }
