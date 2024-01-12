@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import { EditCardStatus } from 'src/components';
+import { AddCardField, Button, EditCardStatus } from 'src/components';
 import { useAppSelector } from 'src/store';
 import { CardAction, CardStatus, ICard } from 'src/types';
 import { INPUT_CONSTANTS } from 'src/constants';
-import { useBoardDispatch, validateData, useCardUpdate } from 'src/utils';
+import {
+  useBoardDispatch,
+  validateData,
+  useCardUpdate,
+  sendRequest,
+} from 'src/utils';
 import styles from './add-card-form.module.scss';
 
 interface IProps {
   card?: ICard;
-  boardId: string;
   action: CardAction;
   handleClose: () => void;
 }
@@ -42,10 +46,10 @@ export const AddCardForm = (props: IProps) => {
       return;
     }
 
-    try {
+    const cardsData = await sendRequest(() => {
       switch (action) {
         case CardAction.edit:
-          const editedCards = await handleEditCard(
+          return handleEditCard(
             {
               ...(card as ICard),
               ...updatedCard,
@@ -54,11 +58,8 @@ export const AddCardForm = (props: IProps) => {
             card as ICard,
           );
 
-          boardDispatch({ ...board, cards: editedCards });
-          break;
-
         case CardAction.add:
-          const newCardRes = await handleAddCard(
+          return handleAddCard(
             {
               ...updatedCard,
               boardId,
@@ -69,17 +70,12 @@ export const AddCardForm = (props: IProps) => {
             board,
           );
 
-          boardDispatch({ ...board, cards: newCardRes });
-          break;
-
         default:
-          break;
+          return new Promise((res) => res(board.cards));
       }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      handleClose();
-    }
+    }, handleClose);
+
+    boardDispatch({ ...board, cards: await cardsData });
   };
 
   const handleUpdate = (key: keyof typeof updatedCard, value: any) => {
@@ -88,23 +84,24 @@ export const AddCardForm = (props: IProps) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label className={styles.field}>
-        <p>{INPUT_CONSTANTS.labels.addInputTitle}</p>
+      <Button isCloseButton handleClick={handleClose} />
+
+      <AddCardField name={INPUT_CONSTANTS.LABELS.ADD_INPUT_TITLE}>
         <input
           type="text"
           className={styles.field__input}
           value={updatedCard.title}
           onChange={(e) => handleUpdate('title', e.target.value)}
         />
-      </label>
+      </AddCardField>
 
-      <label className={styles.field}>
-        <p>{INPUT_CONSTANTS.labels.addInputDesk}</p>
+      <AddCardField name={INPUT_CONSTANTS.LABELS.ADD_INPUT_DESC}>
         <textarea
+          className={styles.field__textarea}
           value={updatedCard.description}
           onChange={(e) => handleUpdate('description', e.target.value)}
         />
-      </label>
+      </AddCardField>
 
       {action === CardAction.edit && (
         <EditCardStatus status={updatedCard.status} setStatus={handleUpdate} />
@@ -113,7 +110,7 @@ export const AddCardForm = (props: IProps) => {
       <input
         className={styles.submitBtn}
         type="submit"
-        value={INPUT_CONSTANTS.values.submit}
+        value={INPUT_CONSTANTS.VALUES.SUBMIT}
       />
     </form>
   );

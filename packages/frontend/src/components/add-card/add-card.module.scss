@@ -4,7 +4,7 @@
 .addCard {
   @include mixins.card();
 
-  transition: box-shadow .2s linear;
+  transition: box-shadow 0.2s linear;
 
   &:hover {
     -webkit-box-shadow: inset 0px 0px 5px 5px rgb(0, 0, 0, 0.4);
@@ -20,36 +20,31 @@
 
   &__form {
     position: relative;
-  
-    &__form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
   }
-}
 
-.closeBtn {
-  position: absolute;
-  right: -10px;
-  top: -10px;
+  &__addButton {
+    width: 100%;
+    height: 100%;
 
-  width: 20px;
-  height: 20px;
+    svg {
+      width: 50px;
+      height: 50px;
 
-  overflow: hidden;
+      transition: transform 0.1s linear;
 
-  &__cross {
-    font-size: 25px;
-
-    transform: rotate(45deg);
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
+      path {
+        transition: stroke 0.3s ease;
+      }
+    }
 
     &:hover {
-      color: blue;
-      transform: rotate(225deg);
+      svg {
+        transform: scale(0.9);
+
+        path {
+          stroke: blue;
+        }
+      }
     }
   }
 }

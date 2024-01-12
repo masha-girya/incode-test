@@ -1,8 +1,8 @@
+import classNames from 'classnames';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { AddCard, Card } from 'src/components';
 import { CardStatus, ICard } from 'src/types';
 import styles from './board-column.module.scss';
-import classNames from 'classnames';
 
 interface IProps {
   cards: ICard[];
@@ -13,7 +13,7 @@ export const BoardColumn = (props: IProps) => {
   const { cards, column } = props;
 
   return (
-    <section>
+    <section className={styles.boardColumn}>
       <h2 className={styles.boardColumn__title}>{column}</h2>
 
       <div

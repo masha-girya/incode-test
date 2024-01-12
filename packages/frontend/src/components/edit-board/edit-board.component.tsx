@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input } from 'src/components';
 import { IBoard } from 'src/types';
 import { editBoard } from 'src/api';
-import { useBoardDispatch, validateData } from 'src/utils';
+import { sendRequest, useBoardDispatch, validateData } from 'src/utils';
 import { INPUT_CONSTANTS } from 'src/constants';
 import styles from './edit-board.module.scss';
 
@@ -22,7 +22,9 @@ export const EditBoard = ({ board, handleEditOpen }: IProps) => {
     event.preventDefault();
 
     if (name !== newName && validateData([newName])) {
-      const response = await editBoard({ id, name: newName });
+      const response = await sendRequest(() =>
+        editBoard({ id, name: newName }),
+      );
 
       if (response) {
         boardDispatch(response);
@@ -39,7 +41,7 @@ export const EditBoard = ({ board, handleEditOpen }: IProps) => {
       <div className={styles.editBoard__submitBtn}>
         <Input
           type="submit"
-          value={INPUT_CONSTANTS.values.changeBoardName}
+          value={INPUT_CONSTANTS.VALUES.CHANGE_BOARD_NAME}
           handleChange={() => {}}
         />
       </div>

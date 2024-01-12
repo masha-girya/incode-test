@@ -1,4 +1,4 @@
-import { CardStatus } from '@/types';
+import { CardStatus } from 'src/types';
 import { BOARD_COLUMNS } from 'src/constants';
 
 interface IProps {

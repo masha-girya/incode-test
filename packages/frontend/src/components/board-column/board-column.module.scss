@@ -2,6 +2,8 @@
 @use 'src/styles/_mixins.scss';
 
 .boardColumn {
+  flex: 1;
+
   &__title {
     margin-bottom: 20px;
 
@@ -16,11 +18,18 @@
 
     padding: 20px;
 
-    width: 390px;
+    max-width: vars.$card-max-width;
+    min-width: vars.$card-min-width;
+    width: 100%;
     min-height: 240px;
 
     background-color: vars.$color-board-background;
     border-radius: vars.$border-radius;
+
+    @include mixins.mediaTablet {
+      margin: 0 auto;
+      max-width: vars.$card-max-width-mobile;
+    }
 
     &_noCards {
       gap: 0;

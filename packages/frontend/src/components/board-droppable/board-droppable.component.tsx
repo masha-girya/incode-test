@@ -1,9 +1,14 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { BoardColumn } from 'src/components';
+import { BoardColumn, BoardMobile } from 'src/components';
 import { IBoard } from 'src/types';
 import { BOARD_COLUMNS } from 'src/constants';
 import { editCard } from 'src/api';
-import { getCardsWithStatus, reorderCards, useBoardDispatch } from 'src/utils';
+import {
+  getCardsWithStatus,
+  reorderCards,
+  sendRequest,
+  useBoardDispatch,
+} from 'src/utils';
 import styles from './board-droppable.module.scss';
 
 interface IProps {
@@ -46,12 +51,14 @@ export const BoardDroppable = ({ board }: IProps) => {
         cards: cardsToDisplay.slice(),
       });
 
-      await Promise.all(
-        cardsWithStatus.map((card, index) =>
-          editCard({
-            ...card,
-            order: index,
-          }),
+      await sendRequest(() =>
+        Promise.all(
+          cardsWithStatus.map((card, index) =>
+            editCard({
+              ...card,
+              order: index,
+            }),
+          ),
         ),
       );
     }
@@ -59,7 +66,9 @@ export const BoardDroppable = ({ board }: IProps) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className={styles.boardDroppable}>
+      <BoardMobile cards={cards} />
+
+      <div className={styles.boardDesktop}>
         {BOARD_COLUMNS.map((column) => (
           <BoardColumn
             key={column}

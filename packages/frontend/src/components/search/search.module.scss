@@ -8,28 +8,27 @@
 
   margin-bottom: 50px;
 
+  @include mixins.mediaTablet {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   &__input {
+    min-width: 300px;
     width: 100%;
-    height: 35px;
 
-    padding: 5px 10px;
+    @include mixins.mediaTablet {
+      order: 2;
 
-    border-radius: vars.$border-radius;
-    border: 1px solid #dbd9d9;
-
-    transition: border-color .3s ease;
-
-    &:hover {
-      border-color: vars.$color-board-background;
-    }
-
-    &:focus {
-      border-color: #202020;
-      outline: none;
+      min-width: auto;
     }
   }
 
   &__buttonWrapper {
     height: 35px;
+
+    @include mixins.mediaTablet {
+      order: 3;
+    }
   }
 }
