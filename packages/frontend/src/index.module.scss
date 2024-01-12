@@ -1,3 +1,5 @@
+@use 'src/styles/_variables.scss' as vars;
+
 * {
   box-sizing: border-box;
 }
@@ -10,7 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #e9e8e8;
+  background-color: vars.$color-background-main;
 }
 
 code {

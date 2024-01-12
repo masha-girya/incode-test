@@ -9,9 +9,8 @@ export const reorderCards = (
 ) => {
   const { droppableId: destColumn, index: newOrder } = destination;
 
-  const newCards = board.cards
-    .filter((card) => card.status === destColumn)
-    .sort((a, b) => a.order - b.order);
+  const newCards = board.cards.filter((card) => card.status === destColumn);
+  // .sort((a, b) => a.order - b.order);
 
   if (card.status !== destColumn) {
     newCards.splice(newOrder, 0, {
