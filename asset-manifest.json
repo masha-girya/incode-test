@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/incode-test/static/css/main.57576452.css",
-    "main.js": "/incode-test/static/js/main.89f00dee.js",
+    "main.js": "/incode-test/static/js/main.c06132bf.js",
     "index.html": "/incode-test/index.html",
     "main.57576452.css.map": "/incode-test/static/css/main.57576452.css.map",
-    "main.89f00dee.js.map": "/incode-test/static/js/main.89f00dee.js.map"
+    "main.c06132bf.js.map": "/incode-test/static/js/main.c06132bf.js.map"
   },
   "entrypoints": [
     "static/css/main.57576452.css",
-    "static/js/main.89f00dee.js"
+    "static/js/main.c06132bf.js"
   ]
 }
