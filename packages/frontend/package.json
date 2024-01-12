@@ -38,8 +38,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "build"
   },
   "eslintConfig": {
     "extends": [
